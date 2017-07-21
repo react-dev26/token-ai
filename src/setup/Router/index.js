@@ -1,5 +1,5 @@
 import React, { PropTypes } from 'react';
-import {Router, Route, browserHistory } from 'react-router'
+import {Router, Route, browserHistory, Redirect } from 'react-router'
 
 import Layout from 'containers/Layout';
 import HomePage from 'containers/HomePage';
@@ -12,7 +12,7 @@ import { store } from 'index.js';
 import { clearError } from 'actions';
 
 export const routes = [
-  { path: '/', component: HomePage },
+  { path: '/home', component: HomePage },
   { path: '/generic', component: Generic },
   { path: '/login', component: Login },
   { path: '/register', component: SignUp },
@@ -64,7 +64,8 @@ function Routing() {
   return (
     <Router history={browserHistory} onUpdate={hashLinkScroll}>
       <Route component={Layout}>
-        <Route path='/' component={HomePage} />
+        <Redirect exact from='/' to='/home' />
+        <Route path='/home' component={HomePage} />
         <Route onEnter={checkAuth}>
           <Route path='/login' component={Login} />
           <Route path='/register' component={SignUp} />
